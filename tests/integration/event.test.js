@@ -76,13 +76,11 @@ describe('Event Booking Endpoints', () => {
     test("Event cannot be overbooked", async () => {
       // Book event twice to reach capacity
       await request(app)
-        .post(`/api/events/${eventId}/book`)
-        .set("Authorization", `Bearer ${userToken}`);
+      .post(`/book/${eventId}`)
   
       // Third attempt should fail
       const res = await request(app)
-        .post(`/api/events/${eventId}/book`)
-        .set("Authorization", `Bearer ${userToken}`);
+      .post(`/book/${eventId}`)
   
       expect(res.statusCode).toBe(400);
       expect(res.body.error).toBe("Event is fully booked");
@@ -92,7 +90,6 @@ describe('Event Booking Endpoints', () => {
       const booking = await Booking.findOne({ user: userToken });
       const res = await request(app)
         .delete(`/cancel/${booking._id}`)
-        .set("Authorization", `Bearer ${userToken}`);
   
       expect(res.statusCode).toBe(204);
     });
