@@ -5,6 +5,8 @@ require('dotenv').config();
 const test = require('dotenv').config()
 console.log("***test", test)
 const DBConnect = require('./utils/dbConnect');
+const DbConfig = require('./config/config.db');
+
 process.on('uncaughtException', (error) => {
   // using uncaughtException event
   console.log(' uncaught Exception => shutting down..... ');
@@ -15,8 +17,8 @@ process.on('uncaughtException', (error) => {
 const app = require('./app');
 
 // database connection
-DBConnect();
-
+//DBConnect();
+//DbConfig();
 // server
 const port = process.env.PORT || 6000;
 const server = app.listen(port, () => {

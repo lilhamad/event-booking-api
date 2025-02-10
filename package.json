@@ -49,6 +49,7 @@
     "prettier"
   ],
   "dependencies": {
+    "babel": "^5.8.38",
     "bcryptjs": "^2.4.3",
     "compression": "^1.7.4",
     "cors": "^2.8.5",
@@ -67,19 +68,23 @@
     "moment": "^2.24.0",
     "mongoose": "^5.7.7",
     "morgan": "^1.9.1",
+    "mysql2": "^3.12.0",
     "nodemailer": "^6.3.1",
     "passport": "^0.4.0",
     "passport-jwt": "^4.0.0",
     "pm2": "^4.1.2",
     "sequelize": "^6.37.5",
     "sequelize-cli": "^6.6.2",
+    "sqlite3": "^5.1.7",
     "swagger-jsdoc": "^6.0.8",
     "swagger-ui-express": "^4.1.6",
+    "tedious": "^18.6.1",
     "validator": "^13.0.0",
     "winston": "^3.2.1",
     "xss-clean": "^0.1.1"
   },
   "devDependencies": {
+    "@babel/register": "^7.25.9",
     "coveralls": "^3.0.7",
     "eslint": "^7.0.0",
     "eslint-config-airbnb-base": "^14.0.0",
