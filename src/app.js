@@ -10,7 +10,6 @@ const path = require('path');
 const hpp = require('hpp');
 
 const userRouter = require('./routers/userRouter');
-const indexRoutes = require('./routers/indexRoutes');
 
 const globalErrorHandler = require('./middlewares/globalErrorHandler');
 
@@ -62,8 +61,8 @@ app.use((req, res, next) => {
 });
 
 // routes
-app.use('/api/v1/users', userRouter);
-app.use('/api/v1', indexRoutes);
+app.use('/api/v1', userRouter);
+//app.use('/api/v1', indexRoutes);
 
 // handling all (get,post,update,delete.....) unhandled routes
 app.all('*', (req, res, next) => {

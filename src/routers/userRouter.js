@@ -1,16 +1,19 @@
 const express = require('express');
-const userController = require('../controllers/userController');
-const authController = require('../controllers/authController');
-const protect = require('../middlewares/protect');
+const EventsController = require('../controllers/EventsController');
+//const authController = require('../controllers/authController');
+//const protect = require('../middlewares/protect');
 
 const router = express.Router();
 
-router.use(protect); //  protect all router which are comming after this middleware
+//router.use(protect); //  protect all router which are comming after this middleware
 
-router.patch('/updatePassword', authController.updatePassword);
+//router.patch('/updatePassword', authController.updatePassword);
 
-router.route('/').get(userController.getAllUsers).post(userController.createUser);
+router.route('/').get(EventsController.getAllUsers)
+router.route('/initialize').post(EventsController.createUser);
+router.route('/book').post(EventsController.createUser);
+router.route('/cancel').post(EventsController.createUser);
 
-router.route('/:id').get(userController.getUser).patch(userController.updateUser).delete(userController.deleteUser);
+router.route('/status/:id').get(EventsController.getUser).patch(EventsController.updateUser).delete(EventsController.deleteUser);
 
 module.exports = router;
