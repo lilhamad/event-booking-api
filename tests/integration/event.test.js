@@ -2,16 +2,13 @@ const request = require('supertest');
 const faker = require('faker');
 const httpStatus = require('http-status');
 const app = require('../../src/app');
-//const setupTestDB = require('../utils/setupTestDB');
-const { User } = require('../../src/models');
-const { userOne, userTwo, admin, insertUsers } = require('../fixtures/user.fixture');
-const { userOneAccessToken, adminAccessToken } = require('../fixtures/token.fixture');
 
 //setupTestDB();
 
 describe('Event Booking Endpoints', () => {
   describe('POST /v1/initialize', () => {
-    let newEvent;
+    let newEvent,  eventId;
+
 
     beforeEach(() => {
       newEvent = {
@@ -22,12 +19,11 @@ describe('Event Booking Endpoints', () => {
       };
     });
 
-    test('should return 201 and successfully create new user if data is ok', async () => {
+    test('should return 201 and successfully create new event if data is ok', async () => {
       await insertUsers([admin]);
 
       const res = await request(app)
         .post('/v1/initialize')
-        .set('Authorization', `Bearer ${adminAccessToken}`)
         .send({
           title: "NG Hckatom 3.0 ",
           date: "2025-07-15",
@@ -35,20 +31,6 @@ describe('Event Booking Endpoints', () => {
           capacity: 2,
         });
         expect(httpStatus.CREATED);
-
-      expect(res.body).not.toHaveProperty('password');
-      expect(res.body).toEqual({
-        id: expect.anything(),
-        name: newUser.name,
-        email: newUser.email,
-        role: newUser.role,
-        isEmailVerified: false,
-      });
-
-      const dbUser = await User.findById(res.body.id);
-      expect(dbUser).toBeDefined();
-      expect(dbUser.password).not.toBe(newUser.password);
-      expect(dbUser).toMatchObject({ name: newUser.name, email: newUser.email, role: newUser.role, isEmailVerified: false });
     });
 
     test("Admin can create an event", async () => {
@@ -63,6 +45,34 @@ describe('Event Booking Endpoints', () => {
   
       expect(res.statusCode).toBe(201);
       eventId = res.body._id;
+    });
+
+    test("Event capacity should not be empty", async () => {
+      const res = await request(app)
+        .post("/api/events")
+        .send({
+          title: "Empty Capacity Event",
+          date: "2025-07-20",
+          venue: "Open Arena",
+          capacity: "", // Empty capacity
+        });
+    
+      expect(res.statusCode).toBe(400);
+      expect(res.body.error).toBe("Capacity is required and must be a number");
+    });
+    
+    test("Event capacity should be an integer", async () => {
+      const res = await request(app)
+        .post("/api/events")
+        .send({
+          title: "Invalid Capacity Event",
+          date: "2025-07-20",
+          venue: "Main Hall",
+          capacity: "five", // Invalid non-integer capacity
+        });
+    
+      expect(res.statusCode).toBe(400);
+      expect(res.body.error).toBe("Capacity must be a valid integer");
     });
   
     test("User can book an event", async () => {
