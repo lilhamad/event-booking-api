@@ -10,9 +10,9 @@ const router = express.Router();
 //router.patch('/updatePassword', authController.updatePassword);
 
 router.route('/').get(EventsController.getAllUsers)
-router.route('/initialize').post(EventsController.createUser);
-router.route('/book').post(EventsController.createUser);
-router.route('/cancel').post(EventsController.createUser);
+router.route('/initialize').post(EventsController.createEvent);
+router.route('/book').post(EventsController.createEvent);
+router.route('/cancel').post(EventsController.createEvent);
 
 router.route('/status/:id').get(EventsController.getUser).patch(EventsController.updateUser).delete(EventsController.deleteUser);
 

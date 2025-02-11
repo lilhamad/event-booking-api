@@ -26,22 +26,10 @@ exports.getAllUsers = catchAsync(async (req, res, next) => {
    });
 });
 
-exports.createUser = catchAsync(async (req, res, next) => {
-   console.log("HERE to create ", req.body);
-   //console.log("database 1", database);
-   console.log("database 3", database.events);
+exports.createEvent = catchAsync(async (req, res, next) => {
    const isEventCreated = await database.events.create(req.body);
-   const isEventCreated2 = await database.Event.create(req.body);
    console.log("*******isEventCreated ", isEventCreated);
-   console.log("*******isEventCreated 2 ", isEventCreated2);
-   console.log("database 2", database.Event.create());
-
-   // const newUser = await Event.create({
-   //    name: req.body.name,
-   //    date: new Date,
-   //    venue: req.body.venue,
-   //    capacity: req.body.capacity
-   // });
+   
 
    if (!isEventCreated)
       return res.status(400).json({
@@ -51,7 +39,7 @@ exports.createUser = catchAsync(async (req, res, next) => {
 
    res.status(200).json({
       status: 'success',
-      user: newUser,
+      user: isEventCreated,
    });
 });
 

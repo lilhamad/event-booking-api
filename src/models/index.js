@@ -53,41 +53,14 @@ const config = require(`${__dirname}/../config/config.js`)[env];
 const db = {};
 
 let sequelize;
-if (config.use_env_variable) {
-  console.log("here 1");
 
-  sequelize = new Sequelize(process.env[config.use_env_variable], config);
-  console.log("here 2");
-} else if (config.url) {
-  console.log("here 3");
-
-  sequelize = new Sequelize(config.url, config);
-  console.log("here 4");
-
-}else if (config.dialect) {
-  console.log("here 8");
 
   sequelize = new Sequelize({
     dialect: 'sqlite',
-    storage: './Ceremony.sqlite3', // Specify the database file
+    storage: path.join(__dirname, '..', 'Ceremony.sqlite3'),
+    
   });
-  console.log("here 9 ", sequelize);
 
-} else {
-  console.log("here 5");
-  console.log("config.use_env_variable ", config.use_env_variable);
-  console.log("config ", config);
-
-  sequelize = new Sequelize(config);
-  console.log("here 6 ", sequelize);
-
-  sequelize = new Sequelize({
-    dialect: 'sqlite',
-    storage: './Ceremony.sqlite3', // Specify the database file
-  });
-  console.log("here 7 ", sequelize);
-
-}
 
 fs
   .readdirSync(__dirname)
@@ -98,7 +71,6 @@ fs
   });
 
 Object.keys(db).forEach((modelName) => {
-  console.log("modelName ", modelName);
   if (db[modelName].associate) {
     db[modelName].associate(db);
   }

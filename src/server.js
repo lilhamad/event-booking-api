@@ -3,7 +3,6 @@ const dotenv = require('dotenv').config({ path: './config.env' });
 const colors = require('colors');
 require('dotenv').config();
 const test = require('dotenv').config()
-console.log("***test", test)
 
 process.on('uncaughtException', (error) => {
   // using uncaughtException event

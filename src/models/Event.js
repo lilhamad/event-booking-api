@@ -2,6 +2,8 @@
 const {
   Model
 } = require('sequelize');
+const uuid = require('uuid');
+
 module.exports = (sequelize, DataTypes) => {
   class events extends Model {
     
@@ -15,5 +17,6 @@ module.exports = (sequelize, DataTypes) => {
     sequelize,
     modelName: 'events',
   });
+  events.beforeCreate(event => event.id = uuid.v4());
   return events;
 };

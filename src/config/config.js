@@ -14,6 +14,7 @@ module.exports = {
   },
   development: {
     dialect: 'sqlite',
+    url: process.env.DB_URL || '',
     storage: path.join(__dirname, '..', 'Ceremony.sqlite3'),
     logging: (e) => {
       console.log(e);

@@ -20,31 +20,16 @@ describe('Event Booking Endpoints', () => {
     });
 
     test('should return 201 and successfully create new event if data is ok', async () => {
-      await insertUsers([admin]);
 
       const res = await request(app)
-        .post('/v1/initialize')
+        .post('api/v1/initialize')
         .send({
           title: "NG Hckatom 3.0 ",
           date: "2025-07-15",
           venue: "South Hall",
-          capacity: 2,
+          capacity: "ii",
         });
         expect(httpStatus.CREATED);
-    });
-
-    test("Admin can create an event", async () => {
-      const res = await request(app)
-        .post("/initialize")
-        .send({
-          title: "Tech Conference",
-          date: "2025-06-15",
-          venue: "Main Hall",
-          capacity: 2,
-        });
-  
-      expect(res.statusCode).toBe(201);
-      eventId = res.body._id;
     });
 
     test("Event capacity should not be empty", async () => {

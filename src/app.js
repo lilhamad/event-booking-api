@@ -9,7 +9,7 @@ const xss = require('xss-clean');
 const path = require('path');
 const hpp = require('hpp');
 
-const userRouter = require('./routers/userRouter');
+const eventRouter = require('./routers/eventRouter');
 
 const globalErrorHandler = require('./middlewares/globalErrorHandler');
 
@@ -17,14 +17,10 @@ const AppError = require('./utils/appError');
 
 require('dotenv').config();
 const test = require('dotenv').config()
-console.log("***test", test)
-// view engine setup
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 
 app.use(express.json());
-
-console.log(process.env.NODE_ENV);
 
 // set security http headers
 app.use(helmet());
@@ -61,7 +57,7 @@ app.use((req, res, next) => {
 });
 
 // routes
-app.use('/api/v1', userRouter);
+app.use('/api/v1', eventRouter);
 //app.use('/api/v1', indexRoutes);
 
 // handling all (get,post,update,delete.....) unhandled routes
