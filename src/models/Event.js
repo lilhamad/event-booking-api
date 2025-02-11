@@ -13,6 +13,7 @@ module.exports = (sequelize, DataTypes) => {
     venue: DataTypes.STRING,
     date: DataTypes.DATE,
     capacity: DataTypes.INTEGER,
+    booked: DataTypes.INTEGER,
   }, {
     sequelize,
     modelName: 'events',

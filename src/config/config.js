@@ -16,6 +16,7 @@ module.exports = {
     dialect: 'sqlite',
     url: process.env.DB_URL || '',
     storage: path.join(__dirname, '..', 'Ceremony.sqlite3'),
+    seederStorage: 'sequelize',
     logging: (e) => {
       console.log(e);
     },

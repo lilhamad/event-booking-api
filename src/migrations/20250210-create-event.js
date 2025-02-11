@@ -18,6 +18,10 @@ module.exports = {
       capacity: {
         allowNull: true,
         type: Sequelize.INTEGER
+      },      
+      booked: {
+        allowNull: true,
+        type: Sequelize.INTEGER
       },
       date: {
         allowNull: true,
