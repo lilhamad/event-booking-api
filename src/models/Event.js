@@ -9,6 +9,9 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       events.hasMany(models.orders, {
         foreignKey: 'eventId',
+      });      
+      events.hasMany(models.waitlists, {
+        foreignKey: 'eventId',
       });
     }
   };

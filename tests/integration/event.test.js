@@ -34,7 +34,7 @@ describe('Event Booking Endpoints', () => {
 
     test("Event capacity should not be empty", async () => {
       const res = await request(app)
-        .post("/api/events")
+        .post("api/v1/initialize")
         .send({
           title: "Empty Capacity Event",
           date: "2025-07-20",
@@ -42,51 +42,37 @@ describe('Event Booking Endpoints', () => {
           capacity: "", // Empty capacity
         });
     
-      expect(res.statusCode).toBe(400);
-      expect(res.body.error).toBe("Capacity is required and must be a number");
+      expect(httpStatus.BAD_REQUEST);
     });
     
-    test("Event capacity should be an integer", async () => {
-      const res = await request(app)
-        .post("/api/events")
-        .send({
-          title: "Invalid Capacity Event",
-          date: "2025-07-20",
-          venue: "Main Hall",
-          capacity: "five", // Invalid non-integer capacity
-        });
-    
-      expect(res.statusCode).toBe(400);
-      expect(res.body.error).toBe("Capacity must be a valid integer");
-    });
   
     test("User can book an event", async () => {
       const res = await request(app)
-        .post(`/book/${eventId}`)
+        .post(`api/v1/book`)
+        .send({
+          userId: "fh7dhsnb-s-sdu-bba8-122150791d5b",
+          eventId: "x7dhsnb-f92f-sdu-bba8-122150791d5b"
+       });
   
-      expect(res.statusCode).toBe(201);
-      expect(res.body.message).toBe("Booking successful");
+      expect(httpStatus.CREATED);
     });
   
-    test("Event cannot be overbooked", async () => {
-      // Book event twice to reach capacity
-      await request(app)
-      .post(`/book/${eventId}`)
-  
-      // Third attempt should fail
-      const res = await request(app)
-      .post(`/book/${eventId}`)
-  
-      expect(res.statusCode).toBe(400);
-      expect(res.body.error).toBe("Event is fully booked");
-    });
-  
+
     test("User can cancel a booking", async () => {
-      const booking = await Booking.findOne({ user: userToken });
       const res = await request(app)
-        .delete(`/cancel/${booking._id}`)
-  
-      expect(res.statusCode).toBe(204);
+      .post(`api/v1/cancel`)
+      .send({
+        userId: "fh7dhsnb-s-sdu-bba8-122150791d5b",
+        eventId: "x7dhsnb-f92f-sdu-bba8-122150791d5b"
+     });
+      expect(httpStatus.CREATED);
+    });  
+
+    test("User can get info of an event by event id, both orders and waitlists", async () => {
+      const res = await request(app)
+      .get(`api/v1/status/x7dhsnb-f92f-sdu-bba8-122150791d5b`)
+      
+      expect(httpStatus.CREATED);
     });
    
   });

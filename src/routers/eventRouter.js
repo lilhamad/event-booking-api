@@ -7,7 +7,6 @@ router.use(protect);
 router.route('/initialize').post(EventsController.createEvent);
 router.route('/book').post(EventsController.bookEvent);
 router.route('/cancel').post(EventsController.cancelEvent);
-
-//router.route('/status/:id').get(EventsController.getUser);
+router.route('/status/:id').get(EventsController.getEvent);
 
 module.exports = router;

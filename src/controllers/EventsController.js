@@ -13,6 +13,17 @@ const filterObj = (obj, ...allowedFields) => {
 
 
 exports.createEvent = catchAsync(async (req, res, next) => {
+   if (req.body.capacity == null || req.body.name == null || req.body.venue == null || req.body.capacity == '' || req.body.name == '' || req.body.venue == '' )
+    {
+   res.status(400).json({
+      status: 'failed',
+      
+      message: `Can't create event due to invalid details`,
+   });
+   console.log("RESSSS ",res)
+   return res;
+}
+
    const isEventCreated = await database.events.create(req.body);
    console.log("*******isEventCreated ", isEventCreated);
    
@@ -24,7 +35,7 @@ exports.createEvent = catchAsync(async (req, res, next) => {
    
    res.status(200).json({
       status: 'success',
-      user: isEventCreated,
+      data: isEventCreated,
    });
 });
 
@@ -65,6 +76,35 @@ exports.bookEvent = catchAsync(async (req, res, next) => {
          message : "Event has been sold  out , but we've nowadded you to our waitlist"
       });
    }
+   
+});
+
+
+exports.getEvent = catchAsync(async (req, res, next) => {
+
+   console.log("*******GETEVENT ");
+
+   const event = await database.events.findOne({
+      where: {
+         id: req.params.id,
+      },
+      include: [{ model: database.orders }, { model: database.waitlists }],
+      // include: [{ model: database.waitlists }],
+
+   });
+   console.log("*******isEventBooked ", event);
+   
+   
+   if (!event){
+      return res.status(400).json({
+         status: 'failed',
+         message: `Can't ind event with the provided id`,
+      });
+   }
+   res.status(200).json({
+      status: 'success',
+      data: event,
+   });
    
 });
 
