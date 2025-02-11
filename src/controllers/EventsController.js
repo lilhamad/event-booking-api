@@ -69,7 +69,7 @@ exports.bookEvent = catchAsync(async (req, res, next) => {
 });
 
 exports.cancelEvent = catchAsync(async (req, res, next) => {
-
+console.log(req.body)
    let x = await database.sequelize.transaction(async (t) => {
       try {
          const event = await database.events.findOne({
@@ -143,11 +143,11 @@ exports.cancelEvent = catchAsync(async (req, res, next) => {
       }
    })
    .catch((error) => {
-      console.error('Transaction failed to initialize:', error);
+      console.error('Transaction failed to cancel:', error);
    })
    .finally(() => {
       // Close the database connection
-      sequelize.close();
+      database.sequelize.close();
    });
    
 });
