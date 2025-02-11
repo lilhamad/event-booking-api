@@ -8,7 +8,7 @@ module.exports = (sequelize, DataTypes) => {
   class events extends Model {
     static associate(models) {
       events.hasMany(models.orders, {
-        foreignKey: 'orderId',
+        foreignKey: 'eventId',
       });
     }
   };

@@ -1,4 +1,4 @@
-## Manual Installation
+## Installation
 
 
 Clone the repo:

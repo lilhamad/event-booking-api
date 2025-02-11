@@ -10,6 +10,10 @@ module.exports = {
       userId: {
         allowNull: true,
         type: Sequelize.STRING
+      },         
+      status: {
+        allowNull: true,
+        type: Sequelize.STRING
       },      
       eventId: {
         type: Sequelize.STRING,
