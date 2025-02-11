@@ -1,8 +1,6 @@
 const path = require('path');
-//import { config } from 'dotenv';
 const config = require('dotenv');
 
-//config();
 const dialect = process.env.DIALECT || 'mysql';
 module.exports = {
   x: {

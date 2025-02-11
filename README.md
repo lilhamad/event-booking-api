@@ -97,6 +97,9 @@ The app has a centralized error handling mechanism.
 
 Controllers should try to catch the errors and forward them to the error handling middleware (by calling `next(error)`). For convenience, you can also wrap the controller inside the catchAsync utility wrapper, which forwards the error.
 
+Race condition is handles using sequelize transaction to make sure
+a unit is locked when change is happening for data integrity and to make sure change in the database either happens fully or doesn’t happen
+
 ```javascript
 const catchAsync = require('../utils/catchAsync');
 
