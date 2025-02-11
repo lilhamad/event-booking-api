@@ -6,7 +6,11 @@ const uuid = require('uuid');
 
 module.exports = (sequelize, DataTypes) => {
   class events extends Model {
-    
+    static associate(models) {
+      events.hasMany(models.orders, {
+        foreignKey: 'orderId',
+      });
+    }
   };
   events.init({
     name: DataTypes.STRING,

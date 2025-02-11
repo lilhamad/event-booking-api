@@ -2,13 +2,18 @@ export default {
     up: async (queryInterface) => queryInterface.bulkInsert('users', [
       {
         name: 'Adewale',
-        id:'sd7dhsnb-f92f-4466-bba8-122150791d5b',
+        id:'ernne-f92f-4466-bba8-122150791d5b',
         createdAt: new Date(),
         updatedAt: new Date()
       },
       {
         name: 'Olawale',
-        id:'x7dhsnb-f92f-sdu-bba8-122150791d5b',
+        id:'fh7dhsnb-s-sdu-bba8-122150791d5b',
+        createdAt: new Date(),
+        updatedAt: new Date()
+      },{
+        name: 'Ogbonna',
+        id:'whshhf-s-sdu-bba8-122150791d5b',
         createdAt: new Date(),
         updatedAt: new Date()
       },
